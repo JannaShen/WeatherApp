@@ -216,3 +216,6 @@ body {
   margin: 0 auto;
   margin-right: 0;
 }
+.right-column a {
+  text-align: right;
+}
