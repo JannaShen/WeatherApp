@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Parcel Sandbox</title>
+    <meta charset="UTF-8" />
+    <link href="src/styles.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+      crossorigin="anonymous"
+    />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <title>weather</title>
+  </head>
+
+  <body>
+    <section class="header">
+      <div class="menu">
+        <div class="logo">
+          <img src="/src/logo.png" />
+        </div>
+        <div class="searchEngine">
+          <input
+            type="search"
+            id="csearch"
+            name="csearch"
+            placeholder="Enter City Name"
+          />
+          <button>Search</button>
+          <button class=currentLocation>Current</button>
+        </div>
+      </div>
+    </section>
+    <section class="content">
+      <div class="container">
+        <div class="left-column">
+          <div class="today_card">
+            <div class="temperature_today">
+              <div class="weatherImg">
+                <img src="/src/partly_cloudy.png" />
+              </div>
+              <div class="weatherText">
+                <h2><strong>17</strong>
+                  <span>
+                    <a href='#' id="celsius">°C</a>|
+                    <a href='#' id="fahrenheit">°F</a>
+                  </span>
+                </h2>
+                <p class="Humidity">Humidity: 76%</p>
+                <p class="Wind">Wind: 14 km/h</p>
+              </div>
+              <div class="Location_info">
+                <h3>Sydney, NSW</h3>
+                <p class="date">2021/4/6 Tuesday</p>
+                <p class="description">Partly cloudy</p>
+              </div>
+            </div>
+            <div class="Temperature_line">
+              <h3>Temperature</h3>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 160 1440 260">
+                <path
+                  fill="#0000ff"
+                  fill-opacity="0.8"
+                  d="M0,224L80,224C160,224,320,224,480,213.3C640,203,800,181,960,176C1120,171,1280,181,1360,186.7L1440,192L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"
+                ></path>
+                <text x="0" y="360" fill="black" font-size="2em">12am</text>
+                <text x="360" y="360" fill="black" font-size="2em">6am</text>
+                <text x="720" y="360" fill="black" font-size="2em">12pm</text>
+                <text x="1080" y="360" fill="black" font-size="2em">18pm</text>
+                <text x="0" y="190" fill="black" font-size="2em">25℃</text>
+              </svg>
+            </div>
+          </div>
+
+          <div class="sevenDayForcast">
+            <h2>Seven Day Forcast</h2>
+            <div class="sevenDay">
+              <div class="card">
+                <h2 class="weekday">Tue(Today)</h2>
+                <img class="weatherImg" src="/src/partly_cloudy.png" />
+                <p class="description">Partly Cloudy</p>
+                <p class="degree">25℃/18℃</p>
+                <img
+                  class="windImg"
+                  src="/src/wind_unselected.svg"
+                  style="
+                    transform-origin: 50% 50%;
+                    transform: rotate(179deg);
+                    width: 24px;
+                  "
+                />
+              </div>
+              <div class="card">
+                <h2 class="weekday">Wed</h2>
+                <img class="weatherImg" src="/src/partly_cloudy.png" />
+                <p class="description">Partly Cloudy</p>
+                <p class="degree">25℃/18℃</p>
+                <img
+                  class="windImg"
+                  src="/src/wind_unselected.svg"
+                  style="
+                    transform-origin: 50% 50%;
+                    transform: rotate(179deg);
+                    width: 24px;
+                  "
+                />
+              </div>
+              <div class="card">
+                <h2 class="weekday">Thu</h2>
+                <img class="weatherImg" src="/src/partly_cloudy.png" />
+                <p class="description">Partly Cloudy</p>
+                <p class="degree">25℃/18℃</p>
+                <img
+                  class="windImg"
+                  src="/src/wind_unselected.svg"
+                  style="
+                    transform-origin: 50% 50%;
+                    transform: rotate(179deg);
+                    width: 24px;
+                  "
+                />
+              </div>
+              <div class="card">
+                <h2 class="weekday">Fri</h2>
+                <img class="weatherImg" src="/src/partly_cloudy.png" />
+                <p class="description">Partly Cloudy</p>
+                <p class="degree">25℃/18℃</p>
+                <img
+                  class="windImg"
+                  src="/src/wind_unselected.svg"
+                  style="
+                    transform-origin: 50% 50%;
+                    transform: rotate(179deg);
+                    width: 24px;
+                  "
+                />
+              </div>
+              <div class="card">
+                <h2 class="weekday">Sat</h2>
+                <img class="weatherImg" src="/src/partly_cloudy.png" />
+                <p class="description">Partly Cloudy</p>
+                <p class="degree">25℃/18℃</p>
+                <img
+                  class="windImg"
+                  src="/src/wind_unselected.svg"
+                  style="
+                    transform-origin: 50% 50%;
+                    transform: rotate(179deg);
+                    width: 24px;
+                  "
+                />
+              </div>
+              <div class="card">
+                <h2 class="weekday">Sun</h2>
+                <img class="weatherImg" src="/src/partly_cloudy.png" />
+                <p class="description">Partly Cloudy</p>
+                <p class="degree">25℃/18℃</p>
+                <img
+                  class="windImg"
+                  src="/src/wind_unselected.svg"
+                  style="
+                    transform-origin: 50% 50%;
+                    transform: rotate(179deg);
+                    width: 24px;
+                  "
+                />
+              </div>
+              <div class="card">
+                <h2 class="weekday">Mon</h2>
+                <img class="weatherImg" src="/src/partly_cloudy.png" />
+                <p class="description">Partly Cloudy</p>
+                <p class="degree">25℃/18℃</p>
+                <img
+                  class="windImg"
+                  src="/src/wind_unselected.svg"
+                  style="
+                    transform-origin: 50% 50%;
+                    transform: rotate(179deg);
+                    width: 24px;
+                  "
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="SevenDayDetails">
+            <h3>Temperature</h3>
+            <div class="location">
+              <h3>Sydney, NSW</h3>
+              <p class="date">2021/4/6 Tuesday</p>
+              <p class="description">Partly cloudy</p>
+            </div>
+            <div class="SevenDayTemperature">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 160 1440 280">
+                <path
+                  fill="#0000ff"
+                  fill-opacity="0.8"
+                  d="M0,224L80,224C160,224,320,224,480,213.3C640,203,800,181,960,176C1120,171,1280,181,1360,186.7L1440,192L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"
+                ></path>
+                <text x="0" y="360" fill="black" font-size="2em">12am</text>
+                <text x="360" y="360" fill="black" font-size="2em">6am</text>
+                <text x="720" y="360" fill="black" font-size="2em">12pm</text>
+                <text x="1080" y="360" fill="black" font-size="2em">18pm</text>
+                <text x="0" y="190" fill="black" font-size="2em">25℃</text>
+              </svg>
+            </div>
+          </div>
+
+          <div class="SevenDayDetails">
+            <h3>Precipatation</h3>
+            <div class="location">
+              <h3>Sydney, NSW</h3>
+              <p class="date">2021/4/6 Tuesday</p>
+              <p class="description">Partly cloudy</p>
+            </div>
+            <div class="SevenDayPreciptation">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 90 1440 280">
+                <path
+                  fill="#0000ff"
+                  fill-opacity="0.8"
+                  d="M0,192L60,170.7C120,149,240,107,360,90.7C480,75,600,85,720,112C840,139,960,181,1080,192C1200,203,1320,181,1380,170.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"
+                ></path>
+                <text x="0" y="360" fill="black" font-size="2em">12am</text>
+                <text x="360" y="360" fill="black" font-size="2em">6am</text>
+                <text x="720" y="360" fill="black" font-size="2em">12pm</text>
+                <text x="1080" y="360" fill="black" font-size="2em">18pm</text>
+                <text x="0" y="120" fill="black" font-size="2em">50%</text>
+              </svg>
+            </div>
+          </div>
+
+          <div class="SevenDayDetails">
+            <h3>Wind</h3>
+            <div class="location">
+              <h3>Sydney, NSW</h3>
+              <p class="date">2021/4/6 Tuesday</p>
+              <p class="description">Partly cloudy</p>
+            </div>
+            <div class="SevenDayWind">
+              <div class="card">
+                <img
+                  class="windImg"
+                  src="/src/wind_unselected.svg"
+                  style="
+                    transform-origin: 50% 50%;
+                    transform: rotate(179deg);
+                    width: 24px;
+                  "
+                />
+                <p class="time">0am</p>
+              </div>
+              <div class="card">
+                <img
+                  class="windImg"
+                  src="/src/wind_unselected.svg"
+                  style="
+                    transform-origin: 50% 50%;
+                    transform: rotate(179deg);
+                    width: 24px;
+                  "
+                />
+                <p class="time">3am</p>
+              </div>
+              <div class="card">
+                <img
+                  class="windImg"
+                  src="/src/wind_unselected.svg"
+                  style="
+                    transform-origin: 50% 50%;
+                    transform: rotate(179deg);
+                    width: 24px;
+                  "
+                />
+                <p class="time">6am</p>
+              </div>
+              <div class="card">
+                <img
+                  class="windImg"
+                  src="/src/wind_unselected.svg"
+                  style="
+                    transform-origin: 50% 50%;
+                    transform: rotate(179deg);
+                    width: 24px;
+                  "
+                />
+
+                <p class="time">9am</p>
+              </div>
+              <div class="card">
+                <img
+                  class="windImg"
+                  src="/src/wind_unselected.svg"
+                  style="
+                    transform-origin: 50% 50%;
+                    transform: rotate(179deg);
+                    width: 24px;
+                  "
+                />
+
+                <p class="time">12pm</p>
+              </div>
+              <div class="card">
+                <img
+                  class="windImg"
+                  src="/src/wind_unselected.svg"
+                  style="
+                    transform-origin: 50% 50%;
+                    transform: rotate(179deg);
+                    width: 24px;
+                  "
+                />
+
+                <p class="time">15pm</p>
+              </div>
+              <div class="card">
+                <img
+                  class="windImg"
+                  src="/src/wind_unselected.svg"
+                  style="
+                    transform-origin: 50% 50%;
+                    transform: rotate(179deg);
+                    width: 24px;
+                  "
+                />
+
+                <p class="time">18pm</p>
+              </div>
+              <div class="card">
+                <img
+                  class="windImg"
+                  src="/src/wind_unselected.svg"
+                  style="
+                    transform-origin: 50% 50%;
+                    transform: rotate(179deg);
+                    width: 24px;
+                  "
+                />
+
+                <p class="time">21pm</p>
+              </div>
+              <div class="card">
+                <img
+                  class="windImg"
+                  src="/src/wind_unselected.svg"
+                  style="
+                    transform-origin: 50% 50%;
+                    transform: rotate(179deg);
+                    width: 24px;
+                  "
+                />
+
+                <p class="time">24pm</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="right-column">
+          <div class="image">
+            <img src="/src/weather-forecast-hot-start-to-december.jpg" />
+          </div>
+          <div class="news">
+            <a href="https://www.news.com.au/topics/weather"
+              >Get more weather news</a
+            >
+          </div>
+          <div class="ads">
+            <p>Place reserved for Ads</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="footer">
+      <div>
+        <p>©2021 Jana Shen, all rights reserved.</p>
+      </div>
+    </section>
+    <script src="src/index.js"></script>
+  </body>
+</html>

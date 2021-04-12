@@ -1,0 +1,218 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+.header {
+  padding: 5px 20px;
+  background-color: white;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 10;
+}
+.menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0px 10px;
+}
+.logo img {
+  width: 150px;
+  height: auto;
+}
+.searchEngine {
+  margin-right: 50px;
+}
+.searchEngine input {
+  width: 300px;
+  height: 2em;
+  border: 1pt solid blue;
+  border-radius: 5px;
+}
+.searchEngine button {
+  background-color: blue;
+  border: 1pt solid blue;
+  border-radius: 5px;
+  color: white;
+  padding: 5px 5px;
+  transition: 0.5s ease-in-out;
+}
+.searchEngine button:hover {
+  background-color: white;
+  color: blue;
+  cursor: pointer;
+}
+.searchEngine .currentLocation {
+  background-color: yellow;
+  border: 1pt solid yellow;
+  border-radius: 5px;
+  color: blue;
+  padding: 5px 5px;
+  transition: 0.5s ease-in-out;
+}
+.searchEngine .currentLocation:hover {
+  background-color: blue;
+  color: yellow;
+  cursor: pointer;
+}
+.container .left-column {
+  float: left;
+  width: 70%;
+}
+.container .right-column {
+  float: right;
+  width: 30%;
+}
+.content {
+  margin-top: 100px;
+  margin-left: 50px;
+}
+.today_card {
+  border: 1pt solid black;
+}
+.temperature_today {
+  display: grid;
+  grid-template-columns: 80px 150px auto;
+}
+.temperature_today .weatherText {
+  line-height: 0.5em;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.temperature_today .weatherText span {
+  font-size: 15px;
+  position: relative;
+  top: -8px;
+  right: 5px;
+}
+.temperature_today .weatherText span a {
+  text-decoration: none;
+  color: blue;
+}
+.temperature_today .Location_info {
+  line-height: 0.5em;
+  font-family: Arial, Helvetica, sans-serif;
+  color: blue;
+  float: right;
+  text-align: right;
+}
+.Temperature_line h3 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+}
+.sevenDay {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto auto;
+}
+.sevenDay .card .weekday {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  text-align: center;
+}
+.sevenDay .card .weatherImg {
+  width: 50px;
+  display: block;
+  margin: 0 auto;
+}
+.sevenDay .card .description {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  text-align: center;
+}
+.sevenDay .card .degree {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  text-align: center;
+}
+.sevenDay .card .windImg {
+  width: 50px;
+  display: block;
+  margin: 0 auto;
+}
+.sevenDay .card {
+  padding: 10px 0px;
+}
+.sevenDayForcast {
+  border: 1pt solid black;
+  margin-top: 20px;
+}
+.sevenDayForcast h2 {
+  font-size: 1.5em;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.SevenDayDetails {
+  border: 1pt solid black;
+  height: auto;
+}
+.SevenDayDetails h3 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  display: inline-block;
+}
+.SevenDayDetails .location {
+  line-height: 0.5em;
+  font-family: Arial, Helvetica, sans-serif;
+  color: blue;
+  float: right;
+  text-align: right;
+}
+
+.SevenDayWind {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto auto auto auto;
+  margin-top: 50px;
+}
+.SevenDayWind .card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.SevenDayWind .card p {
+  font-size: 10px;
+  margin: 5px auto;
+  padding-top: 5px;
+  text-align: center;
+}
+.SevenDayWind img {
+  margin: 0 auto;
+  margin-top: 5px;
+}
+
+.footer div {
+  background-color: blue;
+  color: white;
+  width: 100%;
+  height: 30px;
+  display: flex;
+  align-items: end;
+}
+.footer div p {
+  margin-left: 10px;
+  font-size: 1em;
+}
+.SevenDayDetails:nth-child(5) {
+  margin-bottom: 30px;
+}
+.right-column {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+}
+.right-column .image img {
+  width: 80%;
+  height: 300px;
+  float: right;
+}
+.right-column .news a {
+  width: 80%;
+  font-size: 20px;
+  margin: 0 auto;
+  text-decoration: none;
+  float: right;
+}
+.right-column .ads {
+  border: 1pt solid black;
+  width: 80%;
+  float: right;
+  margin: 0 auto;
+  margin-right: 0;
+}
