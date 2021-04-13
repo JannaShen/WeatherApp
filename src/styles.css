@@ -88,6 +88,9 @@ body {
   text-decoration: none;
   color: blue;
 }
+.temperature_today .weatherImg img {
+  width: 100%;
+}
 .temperature_today .Location_info {
   line-height: 0.5em;
   font-family: Arial, Helvetica, sans-serif;

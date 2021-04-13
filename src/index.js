@@ -1,37 +1,13 @@
-let weather = {
-  paris: {
-    temp: 19.7,
-    humidity: 80
-  },
-  tokyo: {
-    temp: 17.3,
-    humidity: 50
-  },
-  lisbon: {
-    temp: 30.2,
-    humidity: 20
-  },
-  "san francisco": {
-    temp: 20.9,
-    humidity: 100
-  },
-  moscow: {
-    temp: -5,
-    humidity: 20
-  }
-};
 
-function searchCities(searchedcity, o) {
-  var recordedCity;
-
-  for (recordedCity in o) {
-    if (searchedcity === recordedCity) {
-      return o[recordedCity];
-    }
-  }
-  return null;
-}
-
+//function searchCities(searchedcity, o) {
+//  var recordedCity;
+//  for (recordedCity in o) {
+ //   if (searchedcity === recordedCity) {
+  //    return o[recordedCity];
+ //   }
+ // }
+ // return null;
+//}
 //let city = prompt("Enter a city") || "";
 //let result = searchCities(city.trim().toLowerCase(), weather);
 //if (result === null) {
@@ -50,9 +26,10 @@ function searchCities(searchedcity, o) {
 //   }%`
 // );
 //}
-let date = document.querySelector(".today_card .date");
-let now = new Date();
-function formateDate(date, now) {
+
+function formateDate(timestamp) {
+  let date = document.querySelector(".today_card .date");
+  let now = new Date(timestamp);
   var weekdays = [
     "Sunday",
     "Monday",
@@ -73,11 +50,12 @@ function formateDate(date, now) {
   }
   date.innerHTML = `${weekdays[day]}, ${time}:${minutes}`;
 }
-formateDate(date, now);
 
 let button = document.querySelector(".searchEngine button");
+button.addEventListener("click", searchCity);
 
-function searchCity() {
+function searchCity(event) {
+  event.preventDefault();
   let city = document.querySelector("input#csearch").value;
   let h3 = document.querySelector(".Location_info h3");
   if (city) {
@@ -86,25 +64,28 @@ function searchCity() {
   } else {
     alert("Please enter city name to search");
   }
+  
 }
-button.addEventListener("click", searchCity);
-
+let temperature=null;
 //searchEngine
 let apiKey = "6f079a1be79afa8a42b66a1d232d91dd";
 function displayTemperature(city) {
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(function (response) {
-    //console.log(response); //fetch api responses
+    console.log(response); //fetch api responses
     //console.log(response.data.main.temp); //fetch temperature
-    window.temperature = response.data.main.temp;
+    temperature = response.data.main.temp;
+    let icon=response.data.weather[0].icon;
+    let timestamp=response.data.dt;
     let humidity = response.data.main.humidity;
     let windSpeed = response.data.wind.speed;
     let description = response.data.weather[0].description;
-    showWeather(window.temperature, humidity, windSpeed, description);
+    showWeather(temperature, humidity, windSpeed, description, icon);
+    formateDate(timestamp*1000);
   });
 }
 
-function showWeather(temperature, humidity, windSpeed, description) {
+function showWeather(temperature, humidity, windSpeed, description, icon) {
   let celciusShow = document.querySelector("h2 strong");
   celciusShow.innerHTML = temperature;
   let humidityShow = document.querySelector("p.Humidity");
@@ -113,6 +94,8 @@ function showWeather(temperature, humidity, windSpeed, description) {
   windShow.innerHTML = `Wind: ${windSpeed} km/h`;
   let descriptionShow = document.querySelector("p.description");
   descriptionShow.innerHTML = description;
+  let iconShow=document.querySelector('.weatherImg img');
+  iconShow.setAttribute("src", `http://openweathermap.org/img/wn/${icon}@2x.png`)
 }
 
 let celciusDegree = document.querySelector("#celsius");
@@ -127,15 +110,19 @@ function covertFarenhite(degree) {
 }
 function changeFanrenhite(event) {
   event.preventDefault();
-  let fanrenhite = covertFarenhite(window.temperature);
+  celciusDegree.classList.add("active");
+  fanrenhiteDegree.classList.remove("active");
+  let fanrenhite = covertFarenhite(temperature);
   let display = document.querySelector("h2 strong");
   display.innerHTML = fanrenhite;
 }
 
 function changeCelcius(event) {
   event.preventDefault();
+  celciusDegree.classList.remove("active");
+  fanrenhiteDegree.classList.add("active");
   let display = document.querySelector("h2 strong");
-  display.innerHTML = window.temperature;
+  display.innerHTML = temperature;
 }
 
 let currentButton = document.querySelector(".searchEngine .currentLocation");
@@ -151,13 +138,16 @@ function showPosition(position) {
   axios.get(apiUrl).then(function (response) {
     //console.log(response); //fetch api responses
     //console.log(response.data.main.temp); //fetch temperature
-    window.temperature = response.data.main.temp;
+    temperature = response.data.main.temp;
+    let icon=response.data.weather[0].icon;
+    let timestamp=response.data.dt;
     let city = response.data.name;
     let humidity = response.data.main.humidity;
     let windSpeed = response.data.wind.speed;
     let description = response.data.weather[0].description;
-    showWeather(window.temperature, humidity, windSpeed, description);
+    showWeather(temperature, humidity, windSpeed, description, icon);
     showCity(city);
+    formateDate(timestamp*1000);
   });
 }
 function showCity(city) {
