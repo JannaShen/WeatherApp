@@ -68,7 +68,7 @@ body {
   margin-left: 50px;
 }
 .today_card {
-  border: 1pt solid black;
+  border: 1pt solid gainsboro;
 }
 .temperature_today {
   display: grid;
@@ -133,16 +133,19 @@ body {
 .sevenDay .col {
   padding: 10px 0px;
 }
+.row .col {
+  border: 0.5pt solid gainsboro;
+}
 .sevenDayForcast {
-  border: 1pt solid black;
   margin-top: 20px;
+  margin-bottom: 20px;
 }
 .sevenDayForcast h2 {
   font-size: 1.5em;
   font-family: Arial, Helvetica, sans-serif;
 }
 .SevenDayDetails {
-  border: 1pt solid black;
+  border: 1pt solid gainsboro;
   height: auto;
 }
 .SevenDayDetails h3 {
@@ -150,7 +153,7 @@ body {
   font-size: 15px;
   display: inline-block;
 }
-.SevenDayDetails .location {
+.SevenDayDetails .Location_info {
   line-height: 0.5em;
   font-family: Arial, Helvetica, sans-serif;
   color: blue;
@@ -210,9 +213,10 @@ body {
   margin: 0 auto;
   text-decoration: none;
   float: right;
+  color: blue;
 }
 .right-column .ads {
-  border: 1pt solid black;
+  border: 1pt solid gainsboro;
   width: 80%;
   float: right;
   margin: 0 auto;
@@ -220,4 +224,8 @@ body {
 }
 .right-column a {
   text-align: right;
+  color: blue;
+}
+.left-column #hourly {
+  margin-bottom: 20px;
 }

@@ -28,7 +28,7 @@
 //}
 
 function formateDate(timestamp) {
-  let date = document.querySelector(".today_card .date");
+  let date = document.querySelector(".Location_info .date");
   let now = new Date(timestamp);
   var weekdays = [
     "Sunday",
@@ -83,6 +83,7 @@ function displayTemperature(city) {
     showWeather(temperature, humidity, windSpeed, description, icon);
     formateDate(timestamp*1000);
     getForecast(response.data.coord);
+    
   });
 }
 
@@ -149,6 +150,7 @@ function showPosition(position) {
     showWeather(temperature, humidity, windSpeed, description, icon);
     showCity(city);
     formateDate(timestamp*1000);
+    getForecast(position.coords);
   });
 }
 function showCity(city) {
@@ -174,9 +176,10 @@ function weekDay(timestamp){
 
 
 function displayForecast(response){
-  console.log(response.data);
+  //console.log(response.data);
+ 
   let forecastElement=document.querySelector("#sevenDayForcast");
-  let forecastHTML=`<div class="row">`;
+  let forecastHTML=`<h2>Seven Day Forecast</h2> <div class="row">`;
   let hourly=response.data.hourly;
   displayHourlyTrend(hourly);
   let date=response.data.daily;
@@ -199,6 +202,7 @@ function displayForecast(response){
   })
   forecastHTML=forecastHTML+`</div>`
   forecastElement.innerHTML=forecastHTML;
+  hourForecast(response.data);
 }
 
 
@@ -267,9 +271,9 @@ function displayHourlyTrend(data){
     .call(g => g.select(".domain").remove())
   
   display.innerHTML=
-  `<svg viewBox="0 0 ${width} ${height}">
-  <path fill="blue" d="${area(data)}"></path>
-  <text x="0" y="8" fill="black" font-size="0.5em">${d3.max(data, d=>d.temp)}℃</text>
+  `<svg viewBox="0 -5 ${width} ${height}">
+  <path d="${line(data)}" fill="none" stroke="blue" stroke-width="1.5" stroke-miterlimit="1"></path>
+  <text x="0" y="5" fill="black" font-size="0.5em">${d3.max(data, d=>d.temp)}℃</text>
   <text x="0" y="90" fill="black" font-size="0.5em">${formateTime(data[0].dt)}</text>
   <text x="125" y="90" fill="black" font-size="0.5em">${formateTime(data[5].dt)}</text>
   <text x="250" y="90" fill="black" font-size="0.5em">${formateTime(data[11].dt)}</text>
@@ -279,3 +283,122 @@ function displayHourlyTrend(data){
   
     
 }
+ function hourForecast(data){
+   let Location=document.querySelectorAll(".SevenDayDetails .Location_info h3");
+   let time=document.querySelectorAll(".SevenDayDetails .Location_info .date");
+   let description=document.querySelectorAll(".SevenDayDetails .Location_info .description");
+
+   Location.forEach(function(loc){
+     loc.innerHTML=data.timezone;
+   })
+   time.forEach(function(t){
+     t.innerHTML=formateTime(data.current.dt);
+   })
+   description.forEach(function(d){
+     d.innerHTML=data.current.weather[0].description;
+   })
+
+  display48Temperature(data.hourly);
+  display48Humidity(data.hourly);
+  display48Wind(data.hourly);
+ }
+
+ function display48Temperature(data){
+    let displayTemperature=document.querySelector(".SevenDayTemperature");
+
+    x=d3.scaleUtc()
+     .domain(d3.extent(data, d=>d.dt))
+     .range([0, width])
+
+    y=d3.scaleLinear()
+     .domain([0, d3.max(data, d=>d.temp)])
+     .range([height,0])
+
+    line=d3.line()
+      .x(d=>x(d.dt))
+      .y(d=>y(d.temp))
+
+    area1=d3.area()
+      .x(d=>x(d.dt))
+      .y0(d=>y(d.temp))
+      .y1(y(5))
+
+  
+    xAxis = (g, scale=x) => g
+      .attr("transform", `translate(0,${height-margin.bottom})`)
+      .call(d3.axisBottom(x).ticks(width / 80).tickSizeOuter(0))
+  
+    yAxis = (g, scale=y) => g
+      .attr("transform", `translate(${margin.left},0)`)
+      .call(d3.axisLeft(y).ticks(height / 40))
+      .call(g => g.select(".domain").remove())
+
+  
+    displayTemperature.innerHTML=
+    `<svg viewBox="0 -5 ${width} ${height}">
+     <path d="${line(data)}" fill="none" stroke="blue" stroke-width="1.5" stroke-miterlimit="1"></path>
+     <text x="0" y="5" fill="black" font-size="0.5em">${d3.max(data, d=>d.temp)}℃</text>
+     <text x="0" y="90" fill="black" font-size="0.5em">${formateTime(data[0].dt)}</text>
+     <text x="125" y="90" fill="black" font-size="0.5em">${formateTime(data[11].dt)}</text>
+     <text x="250" y="90" fill="black" font-size="0.5em">${formateTime(data[23].dt)}</text>
+     <text x="375" y="90" fill="black" font-size="0.5em">${formateTime(data[35].dt)}</text>
+    <text x="480" y="90" fill="black" font-size="0.5em">${formateTime(data[47].dt)}</text>
+   </svg>`
+
+    
+ }
+
+ function display48Humidity(data){
+    let displayHumidity=document.querySelector(".SevenDayPreciptation");
+
+     x=d3.scaleUtc()
+     .domain(d3.extent(data, d=>d.dt))
+     .range([0, width])
+
+    
+    y=d3.scaleLinear()
+     .domain([0, d3.max(data, d=>d.humidity)])
+     .range([height,0])
+    
+    line=d3.line()
+      .x(d=>x(d.dt))
+      .y(d=>y(d.humidity))
+
+    area2=d3.area()
+      .x(d=>x(d.dt))
+      .y0(d=>y(d.humidity))
+      .y1(y(15))
+
+    displayHumidity.innerHTML=
+    `<svg viewBox="0 -5 ${width} ${height}">
+     <path d="${line(data)}" fill="none" stroke="blue" stroke-width="1.5" stroke-miterlimit="1"></path>
+     <text x="0" y="5" fill="black" font-size="0.5em">${d3.max(data, d=>d.humidity)}%</text>
+     <text x="0" y="90" fill="black" font-size="0.5em">${formateTime(data[0].dt)}</text>
+     <text x="125" y="90" fill="black" font-size="0.5em">${formateTime(data[11].dt)}</text>
+     <text x="250" y="90" fill="black" font-size="0.5em">${formateTime(data[23].dt)}</text>
+     <text x="375" y="90" fill="black" font-size="0.5em">${formateTime(data[35].dt)}</text>
+    <text x="480" y="90" fill="black" font-size="0.5em">${formateTime(data[47].dt)}</text>
+   </svg>`
+
+ }
+
+ function display48Wind(data){
+   let displayWind=document.querySelectorAll(".SevenDayWind .card");
+   displayWind.forEach(function(w, index){
+     Img=w.querySelector("img");
+     var i=index*5;
+     Img.outerHTML=`<img
+                  class="windImg"
+                  src="src/wind_unselected.svg"
+                  style="
+                    transform-origin: 50% 50%;
+                    transform: rotate(${data[i].wind_deg}deg);
+                    width: 24px;
+                  "
+                />`
+     time=w.querySelector("p");
+     time.innerHTML=formateTime(data[i].dt);
+   }
+
+   )
+ }
