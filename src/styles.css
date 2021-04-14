@@ -104,34 +104,33 @@ body {
 }
 .sevenDay {
   display: grid;
-  grid-template-columns: auto auto auto auto auto auto auto;
 }
-.sevenDay .card .weekday {
+.sevenDay .col .weekday {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 15px;
   text-align: center;
 }
-.sevenDay .card .weatherImg {
+.sevenDay .col .weatherImg {
   width: 50px;
   display: block;
   margin: 0 auto;
 }
-.sevenDay .card .description {
+.sevenDay .col .description {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 15px;
   text-align: center;
 }
-.sevenDay .card .degree {
+.sevenDay .col .degree {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 15px;
   text-align: center;
 }
-.sevenDay .card .windImg {
+.sevenDay .col .windImg {
   width: 50px;
   display: block;
   margin: 0 auto;
 }
-.sevenDay .card {
+.sevenDay .col {
   padding: 10px 0px;
 }
 .sevenDayForcast {

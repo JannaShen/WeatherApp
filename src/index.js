@@ -154,3 +154,28 @@ function showCity(city) {
   let h3 = document.querySelector(".Location_info h3");
   h3.innerHTML = city;
 }
+
+function displayForecast(){
+  let forecastElement=document.querySelector("#sevenDayForcast");
+  let forecastHTML=`<div class="row">`;
+  let date=["sun", "Mon", "Tue", "Wed", "Thu", "Fri"];
+  date.forEach(function(day){
+    forecastHTML=forecastHTML+`
+  <div class="col">
+   <h2 class="weekday">Tue(Today)</h2>
+    <img class="weatherImg" src="src/partly_cloudy.png" />
+      <p class="description">Partly Cloudy</p>
+      <p class="degree">25℃/18℃</p>
+        <img
+          class="windImg"
+          src="src/wind_unselected.svg"
+          style="
+                transform-origin: 50% 50%;
+                transform: rotate(179deg);
+                width: 24px;"/>
+   </div>`;
+  })
+  forecastHTML=forecastHTML+`</div>`
+  forecastElement.innerHTML=forecastHTML;
+}
+displayForecast();
