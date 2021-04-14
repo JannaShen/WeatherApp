@@ -168,6 +168,7 @@ function weekDay(timestamp){
     "Sat"
   ];
   var day = now.getDay();
+
   return weekdays[day];
 }
 
@@ -176,6 +177,8 @@ function displayForecast(response){
   console.log(response.data);
   let forecastElement=document.querySelector("#sevenDayForcast");
   let forecastHTML=`<div class="row">`;
+  let hourly=response.data.hourly;
+  displayHourlyTrend(hourly);
   let date=response.data.daily;
   date.forEach(function(forecastDay, index){
   if (index<7){
@@ -210,3 +213,69 @@ function search(city){
 
   displayTemperature(city);
   showCity(city);}
+
+
+function formateTime(timestamp){
+  let now = new Date(timestamp*1000);
+  
+  var time = now.getHours();
+  if (time >=12) {
+    time = time+"pm";
+  }
+  else if(time<10){
+    time='0'.concat(time)+"am";}
+  else{
+    time=time+"am";
+  }
+  
+  return `${time}` ;
+}
+
+var width=500;
+var height=100;
+var margin = ({top: 20, right: 30, bottom: 30, left: 40})
+
+  
+function displayHourlyTrend(data){
+
+  let display=document.querySelector(".temperaturesvg");
+
+  x=d3.scaleUtc()
+     .domain(d3.extent(data.slice(0,24), d=>d.dt))
+     .range([0, width])
+
+  y=d3.scaleLinear()
+     .domain([0, d3.max(data.slice(0,24), d=>d.temp)])
+     .range([height,0])
+
+  line=d3.line()
+      .x(d=>x(d.dt))
+      .y(d=>y(d.temp))
+
+  area=d3.area()
+      .x(d=>x(d.dt))
+      .y0(d=>y(d.temp))
+      .y1(y(5))
+
+  xAxis = (g, scale=x) => g
+    .attr("transform", `translate(0,${height-margin.bottom})`)
+    .call(d3.axisBottom(x).ticks(width / 80).tickSizeOuter(0))
+  
+  yAxis = (g, scale=y) => g
+    .attr("transform", `translate(${margin.left},0)`)
+    .call(d3.axisLeft(y).ticks(height / 40))
+    .call(g => g.select(".domain").remove())
+  
+  display.innerHTML=
+  `<svg viewBox="0 0 ${width} ${height}">
+  <path fill="blue" d="${area(data)}"></path>
+  <text x="0" y="8" fill="black" font-size="0.5em">${d3.max(data, d=>d.temp)}℃</text>
+  <text x="0" y="90" fill="black" font-size="0.5em">${formateTime(data[0].dt)}</text>
+  <text x="125" y="90" fill="black" font-size="0.5em">${formateTime(data[5].dt)}</text>
+  <text x="250" y="90" fill="black" font-size="0.5em">${formateTime(data[11].dt)}</text>
+  <text x="375" y="90" fill="black" font-size="0.5em">${formateTime(data[17].dt)}</text>
+  <text x="480" y="90" fill="black" font-size="0.5em">${formateTime(data[23].dt)}</text>
+</svg>`
+  
+    
+}
