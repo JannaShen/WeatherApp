@@ -64,8 +64,8 @@ function searchCity(event) {
   } else {
     alert("Please enter city name to search");
   }
-  
 }
+
 let temperature=null;
 //searchEngine
 let apiKey = "6f079a1be79afa8a42b66a1d232d91dd";
@@ -74,7 +74,7 @@ function displayTemperature(city) {
   axios.get(apiUrl).then(function (response) {
     console.log(response); //fetch api responses
     //console.log(response.data.main.temp); //fetch temperature
-    temperature = response.data.main.temp;
+    temperature = Math.round(response.data.main.temp);
     let icon=response.data.weather[0].icon;
     let timestamp=response.data.dt;
     let humidity = response.data.main.humidity;
@@ -82,6 +82,7 @@ function displayTemperature(city) {
     let description = response.data.weather[0].description;
     showWeather(temperature, humidity, windSpeed, description, icon);
     formateDate(timestamp*1000);
+    getForecast(response.data.coord);
   });
 }
 
@@ -155,27 +156,57 @@ function showCity(city) {
   h3.innerHTML = city;
 }
 
-function displayForecast(){
+function weekDay(timestamp){
+  let now = new Date(timestamp*1000);
+  var weekdays = [
+    "Sun",
+    "Mon",
+    "Tue",
+    "Wed",
+    "Thu",
+    "Fri",
+    "Sat"
+  ];
+  var day = now.getDay();
+  return weekdays[day];
+}
+
+
+function displayForecast(response){
+  console.log(response.data);
   let forecastElement=document.querySelector("#sevenDayForcast");
   let forecastHTML=`<div class="row">`;
-  let date=["sun", "Mon", "Tue", "Wed", "Thu", "Fri"];
-  date.forEach(function(day){
+  let date=response.data.daily;
+  date.forEach(function(forecastDay, index){
+  if (index<7){
     forecastHTML=forecastHTML+`
   <div class="col">
-   <h2 class="weekday">Tue(Today)</h2>
-    <img class="weatherImg" src="src/partly_cloudy.png" />
-      <p class="description">Partly Cloudy</p>
-      <p class="degree">25℃/18℃</p>
+   <h2 class="weekday">${weekDay(forecastDay.dt)}</h2>
+    <img class="weatherImg" src="http://openweathermap.org/img/wn/${forecastDay.weather[0].icon}@2x.png" />
+      <p class="description">${forecastDay.weather[0].description}</p>
+      <p class="degree">${Math.round(forecastDay.temp.max)}℃/${Math.round(forecastDay.temp.min)}℃</p>
         <img
           class="windImg"
           src="src/wind_unselected.svg"
           style="
                 transform-origin: 50% 50%;
-                transform: rotate(179deg);
+                transform: rotate(${forecastDay.wind_deg}deg);
                 width: 24px;"/>
-   </div>`;
+   </div>`;}
   })
   forecastHTML=forecastHTML+`</div>`
   forecastElement.innerHTML=forecastHTML;
 }
-displayForecast();
+
+
+function getForecast(coordinates){
+  let apiUrl=`https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayForecast);
+}
+
+search("Sydney")
+
+function search(city){
+
+  displayTemperature(city);
+  showCity(city);}
