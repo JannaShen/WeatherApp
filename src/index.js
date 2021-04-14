@@ -193,7 +193,7 @@ function displayForecast(response){
       <p class="degree">${Math.round(forecastDay.temp.max)}℃/${Math.round(forecastDay.temp.min)}℃</p>
         <img
           class="windImg"
-          src="src/wind_unselected.svg"
+          src="https://ssl.gstatic.com/m/images/weather/wind_unselected.svg"
           style="
                 transform-origin: 50% 50%;
                 transform: rotate(${forecastDay.wind_deg}deg);
@@ -389,7 +389,7 @@ function displayHourlyTrend(data){
      var i=index*5;
      Img.outerHTML=`<img
                   class="windImg"
-                  src="src/wind_unselected.svg"
+                  src="https://ssl.gstatic.com/m/images/weather/wind_unselected.svg"
                   style="
                     transform-origin: 50% 50%;
                     transform: rotate(${data[i].wind_deg}deg);
